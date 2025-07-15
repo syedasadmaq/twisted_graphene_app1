@@ -2,8 +2,8 @@ import numpy as np
 import streamlit as st
 import plotly.express as px
 
-# Parameters
-a = 2.46  # graphene lattice constant in angstroms
+
+a = 2.46  
 
 def apply_strain(X, Y, strain_percent, strain_angle_deg):
     angle_rad = np.radians(strain_angle_deg)
@@ -30,15 +30,15 @@ def rotate_grid(X, Y, angle_deg):
     Y_rot = X * np.sin(angle_rad) + Y * np.cos(angle_rad)
     return X_rot, Y_rot
 
-# Streamlit App
+
 st.title("Twisted Graphene Simulator")
 st.write("Toggle between bilayer and trilayer graphene, with Quick and High-Res modes.")
 
-# Mode selector
+
 system_mode = st.sidebar.radio("Select Graphene System", ("Bilayer", "Trilayer"))
 render_mode = st.sidebar.radio("Select Mode", ("Quick Mode", "High-Res Mode"))
 
-# Adjust scan area and resolution based on mode
+
 if render_mode == "Quick Mode":
     st.sidebar.info("Quick Mode: Fast interactive preview")
     extent = st.sidebar.slider("Scan Area Size (Å)", 10, 100, 50, 10)
@@ -52,7 +52,7 @@ x = np.linspace(-extent, extent, grid_size)
 y = np.linspace(-extent, extent, grid_size)
 X, Y = np.meshgrid(x, y)
 
-# Common strain controls
+
 st.sidebar.header("Common Parameters")
 st.sidebar.subheader("Strain for Layer 1")
 strain1 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 2.0, 0.1)
@@ -65,7 +65,7 @@ if system_mode == "Bilayer":
     strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1)
     angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 00.0, 1.0)
 
-    # Generate bilayer
+    
     X1, Y1 = apply_strain(X, Y, strain1, angle1)
     X2, Y2 = apply_strain(X, Y, strain2, angle2)
     lattice1 = graphene_lattice(X1, Y1, a)
