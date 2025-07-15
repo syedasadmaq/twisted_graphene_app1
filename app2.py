@@ -60,7 +60,7 @@ angle1 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 0.0, 1.0)
 
 if system_mode == "Bilayer":
     st.sidebar.header("Bilayer Settings")
-    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 20.0, 1.1, 0.1)
+    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 10.0, 1.1, 0.1)
     st.sidebar.subheader("Strain for Layer 2")
     strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1)
     angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 0.0, 1.0)
