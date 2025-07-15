@@ -2,7 +2,7 @@ import numpy as np
 import streamlit as st
 import plotly.express as px
 
-a = 2.46  # Graphene lattice constant
+a = 2.46  
 
 def apply_strain(X, Y, strain_percent, strain_angle_deg):
     angle_rad = np.radians(strain_angle_deg)
@@ -29,15 +29,15 @@ def rotate_grid(X, Y, angle_deg):
     Y_rot = X * np.sin(angle_rad) + Y * np.cos(angle_rad)
     return X_rot, Y_rot
 
-# App title and description
+
 st.title("Twisted Graphene Simulator")
 st.write("Toggle between bilayer and trilayer graphene, with Quick and High-Res modes.")
 
-# Sidebar controls
+
 system_mode = st.sidebar.radio("Select Graphene System", ("Bilayer", "Trilayer"), key="system_mode")
 render_mode = st.sidebar.radio("Select Mode", ("Quick Mode", "High-Res Mode"), key="render_mode")
 
-# Adjust grid parameters based on render mode
+
 if render_mode == "Quick Mode":
     st.sidebar.info("Quick Mode: Fast interactive preview")
     extent = st.sidebar.slider("Scan Area Size (Å)", 10, 100, 50, 10, key="extent_quick")
@@ -51,7 +51,7 @@ x = np.linspace(-extent, extent, grid_size)
 y = np.linspace(-extent, extent, grid_size)
 X, Y = np.meshgrid(x, y)
 
-# Common parameters for all systems
+
 st.sidebar.header("Common Parameters")
 st.sidebar.subheader("Strain for Layer 1")
 strain1 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 2.0, 0.1, key="strain1")
@@ -64,7 +64,7 @@ if system_mode == "Bilayer":
     strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1, key="strain2")
     angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 0.0, 1.0, key="angle2")
 
-    # Apply strain and rotation
+
     X1, Y1 = apply_strain(X, Y, strain1, angle1)
     X2, Y2 = apply_strain(X, Y, strain2, angle2)
     lattice1 = graphene_lattice(X1, Y1, a)
@@ -73,7 +73,7 @@ if system_mode == "Bilayer":
     combined = lattice1 + lattice2
     title = f"Bilayer Graphene: Twist {theta_layer2}°, Strains {strain1}% / {strain2}%"
 
-else:  # Trilayer system
+else:  
     st.sidebar.header("Trilayer Settings")
     theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 10.0, 4.8, 0.1, key="theta_layer2_tri")
     theta_layer3 = st.sidebar.slider("Twist Angle Layer 3 (°)", -10.0, 10.0, -1.5, 0.1, key="theta_layer3_tri")
@@ -84,7 +84,7 @@ else:  # Trilayer system
     strain3 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1, key="strain3_tri")
     angle3 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 0.0, 1.0, key="angle3_tri")
 
-    # Apply strain and rotation
+    
     X1, Y1 = apply_strain(X, Y, strain1, angle1)
     X2, Y2 = apply_strain(X, Y, strain2, angle2)
     X3, Y3 = apply_strain(X, Y, strain3, angle3)
@@ -96,7 +96,7 @@ else:  # Trilayer system
     combined = lattice1 + lattice2 + lattice3
     title = f"Trilayer Graphene: Twists {theta_layer2}° / {theta_layer3}°, Strains {strain1}% / {strain2}% / {strain3}%"
 
-# Plot
+
 fig = px.imshow(
     combined,
     color_continuous_scale='Viridis',
@@ -108,7 +108,7 @@ fig.update_layout(coloraxis_showscale=False)
 
 st.plotly_chart(fig, use_container_width=True)
 
-# Download option for high-res mode
+
 if render_mode == "High-Res Mode":
     st.download_button(
         label="Download Image",
@@ -118,6 +118,6 @@ if render_mode == "High-Res Mode":
         key="download_button"
     )
 
-# Footer
+
 st.markdown("---")
 st.markdown("<center><small>Creator: Syed Asad Maqbool | Email: syedasad@mail.ustc.edu.cn</small></center>", unsafe_allow_html=True)
