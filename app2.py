@@ -121,4 +121,3 @@ if render_mode == "High-Res Mode":
 
 st.markdown("---")
 st.markdown("<center><small>Creator: Syed Asad Maqbool | Email: syedasad@mail.ustc.edu.cn</small></center>", unsafe_allow_html=True)
-```
