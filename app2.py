@@ -60,10 +60,10 @@ angle1 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 0.0, 1.0)
 
 if system_mode == "Bilayer":
     st.sidebar.header("Bilayer Settings")
-    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 10.0, 1.5, 0.1)
+    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 20.0, 1.1, 0.1)
     st.sidebar.subheader("Strain for Layer 2")
-    strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 3.0, 0.1)
-    angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 30.0, 1.0)
+    strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1)
+    angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 00.0, 1.0)
 
     # Generate bilayer
     X1, Y1 = apply_strain(X, Y, strain1, angle1)
@@ -76,16 +76,16 @@ if system_mode == "Bilayer":
 
 else:
     st.sidebar.header("Trilayer Settings")
-    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 10.0, 1.5, 0.1)
+    theta_layer2 = st.sidebar.slider("Twist Angle Layer 2 (°)", 0.0, 10.0, 4.8, 0.1)
     theta_layer3 = st.sidebar.slider("Twist Angle Layer 3 (°)", -10.0, 10.0, -1.5, 0.1)
     st.sidebar.subheader("Strain for Layer 2")
-    strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 3.0, 0.1)
-    angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 30.0, 1.0)
+    strain2 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1)
+    angle2 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 00.0, 1.0)
     st.sidebar.subheader("Strain for Layer 3")
-    strain3 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 4.0, 0.1)
-    angle3 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 60.0, 1.0)
+    strain3 = st.sidebar.slider("Strain (%)", 0.0, 10.0, 0.0, 0.1)
+    angle3 = st.sidebar.slider("Strain Direction (°)", 0.0, 180.0, 00.0, 1.0)
 
-    # Generate trilayer
+    
     X1, Y1 = apply_strain(X, Y, strain1, angle1)
     X2, Y2 = apply_strain(X, Y, strain2, angle2)
     X3, Y3 = apply_strain(X, Y, strain3, angle3)
@@ -97,7 +97,7 @@ else:
     combined = lattice1 + lattice2 + lattice3
     title = f"Trilayer Graphene: Twists {theta_layer2}° / {theta_layer3}°, Strains {strain1}% / {strain2}% / {strain3}%"
 
-# Plot with Plotly
+
 fig = px.imshow(
     combined,
     color_continuous_scale='Viridis',
@@ -107,10 +107,10 @@ fig = px.imshow(
 )
 fig.update_layout(coloraxis_showscale=False)
 
-# Display plot
+
 st.plotly_chart(fig, use_container_width=True)
 
-# High-Res Mode download option
+
 if render_mode == "High-Res Mode":
     st.download_button(
         label="Download Image",
@@ -119,7 +119,8 @@ if render_mode == "High-Res Mode":
         mime="image/png"
     )
 
-# Footer
 st.markdown("---")
-st.markdown("<center><small>Creator: Syed Asad Maqbool</small></center>", unsafe_allow_html=True)
+st.markdown("<center><small>Creator: Syed Asad Maqbool | Email: syedasad@mail.ustc.edu.cn</small></center>", unsafe_allow_html=True)
+
+
 
